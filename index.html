@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>M1S06Ex01</title>
+</head>
+
+<body>
+  <h1>M1S06Ex01</h1>
+  <p>
+    - Crie uma página html e adicione um título h1 com a descrição "Título da página";<br>
+    - Adicione um botão com a descrição "Alterar título" e adicione o evento de click nele para uma função
+    javascript;<br>
+    - Crie a função javascript para alterar o título, nela deve ser buscado o elemento h1 e alterado o texto para
+    "Título da página alterado";</p>
+  <h1 id="titulo">Título da página</h1>
+  <button onclick="alteraTitulo()">Alterar título</button>
+
+  <script>
+    function alteraTitulo() {
+      document.getElementById("titulo").innerText = "Título da página alterado";
+    }  
+  </script>
+</body>
+
+</html>
