@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>M1S06Ex02</title>
+</head>
+
+<body>
+  <h1>M1S06Ex02</h1>
+  <p>
+    - Crie um uma página html contendo:<br>
+    -- 2 inputs do tipo number;<br>
+    -- 1 select com as options Somar, Subtrair, Dividir, Multiplicar<br>
+    -- 1 button com o texto Calcular<br>
+    - Crie uma função JavaScript para efetuar as operações:<br>
+    -- Deve ser obtido os valores dos inputs<br>
+    -- Deve ser obtida a operação desejada de acordo com o valor do select<br>
+    -- Deve ser adicionado um elemento do tipo p> via JavaScript para exibir o resultado do cálculo<br>
+    - Adicione o evento de click no botão calcular<br>
+  </p>
+
+  <input type="number" id="primeiroNumero">
+  <input type="number" id="segundoNumero">
+
+  <select name="operacao" id="operador">
+    <option value="somar" selected>Somar</option>
+    <option value="subtrair">Subtrair</option>
+    <option value="dividir">Dividir</option>
+    <option value="multiplicar">Multiplicar</option>
+  </select>
+
+  <button onclick="calculadora()">Calcular</button>
+
+  <script>
+    function calculadora() {
+    let primeiroNumero = Number(document.getElementById("primeiroNumero").value);
+    let segundoNumero = Number(document.getElementById("segundoNumero").value);
+      let operador = document.getElementById("operador").value;
+      console.log(operador);
+      switch (operador) {
+        case 'somar':
+          resultado = primeiroNumero + segundoNumero;
+          break;
+        case 'subtrair':
+          resultado = primeiroNumero - segundoNumero;
+          break;
+        case 'dividir':
+          resultado = primeiroNumero / segundoNumero;
+          break;
+        case 'multiplicar':
+          resultado = primeiroNumero * segundoNumero;
+          break;
+        default:
+          break;
+      }
+
+    const paragrafo = document.createElement("p");
+    paragrafo.innerText = resultado;
+    document.body.appendChild(paragrafo);
+
+    }
+  </script>
+</body>
+</html>
