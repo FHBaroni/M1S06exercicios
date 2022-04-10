@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>M1S06Ex04</title>
+</head>
+
+<body>
+  <h1>M1S06Ex04</h1>
+  <p>
+    Após implementar o Ex 3, vamos adicionar tratativas na função criada;<br>
+    - Quando o usuário clicar no botão de buscar sem ter informado um valor no input exibir modal de alerta (alert) informando que o campo precisa ser preenchido<br>
+    - Quando o usuário preencher o campo com menos ou mais de 8 caracteres deve ser exibido modal de alerta (alert) informando que o campo foi preenchido com um cep inválido<br>
+    - Em ambos os casos à cima não deve ser realizada a consulta na api de cep<br>
+  </p>
+  <input type="number" id="cep">
+  <input type="button" id="botao" value="Busca CEP">
+
+<script>
+  //------------------------------------------------------------------------
+  const pesquisaCep = () => {
+  const cep = document.getElementById("cep").value;
+  if (!cep ) {
+    alert("Preencha o campo para buscar o CEP");
+  }else{
+    if (cep.length != 8) {
+      alert("CEP inválido! Preencha o campo com um CEP válido");
+    } 
+    
+    // Cria função assíncrona para realizar o fetch do endereço do cep
+    const fetchApi = async () =>{
+    
+    // Efetua a chamada a api e aguarda o retorno
+    const response = await fetch('https://viacep.com.br/ws/88475000/json/');
+    
+    // Efetua a tratativa caso o retorno seja um erro
+    if (!response.ok) {
+    const err = await response.json();
+    return console.log('ocorreu o seguinte erro:', err.message);
+    }
+
+    // Efetua a tratativa caso o retorno seja sucesso
+    const data = await response.json();
+    console.log(data);
+    };
+    fetchApi();
+  }
+  }
+//------------------------------------------------------------------------
+
+// document.getElementById ("cep")
+document.getElementById("botao")
+        .onclick = function() {pesquisaCep()};
+  </script>
+</body>
+</html>
