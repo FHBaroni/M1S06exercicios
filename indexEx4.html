@@ -19,7 +19,6 @@
   <input type="button" id="botao" value="Busca CEP">
 
 <script>
-  //------------------------------------------------------------------------
   const pesquisaCep = () => {
   const cep = document.getElementById("cep").value;
   if (!cep ) {
@@ -48,8 +47,7 @@
     fetchApi();
   }
   }
-//------------------------------------------------------------------------
-
+  
 // document.getElementById ("cep")
 document.getElementById("botao")
         .onclick = function() {pesquisaCep()};
