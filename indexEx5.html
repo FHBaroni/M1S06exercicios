@@ -8,7 +8,7 @@
 </head>
 
 <body>
-  <h1>M1S06Ex04</h1>
+  <h1>M1S06Ex05</h1>
   <p>
     Após implementar o Ex 4, vamos adicionar tratativas na função criada;<br>
 - Caso a api retorne erro deve ser exibido um alerta para o usuário informando que não foi possível consultar o cep<br>
@@ -20,7 +20,7 @@
 
 <script>
   const pesquisaCep = () => {
-  const cep = document.getElementById("cep").value;
+  let cep = document.getElementById("cep").value;
   if (!cep ) {
     alert("Preencha o campo para buscar o CEP");
   }else{
@@ -32,7 +32,9 @@
     const fetchApi = async () =>{
     
     // Efetua a chamada a api e aguarda o retorno
-    const response = await fetch('https://viacep.com.br/ws/88108240/json/');
+    const response = await fetch(
+              'https://viacep.com.br/ws/' + cep + '/json/'
+            );
     
     // Efetua a tratativa caso o retorno seja um erro
     if (!response.ok) {
