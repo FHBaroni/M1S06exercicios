@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>M1S06Ex06</title>
+  </head>
+
+  <body>
+    <h1>M1S06Ex06</h1>
+    <p>
+      - Crie uma página html para buscar os CEP através do endereço contendo:<br />
+      -- 1 input para UF<br />
+      -- 1 input para cidade<br />
+      -- 1 input para logradouro/rua<br />
+      -- 1 button para consultar<br /><br />
+      - Crie uma função assíncrona para realizar a busca na api<br />
+      -- Utilize o endereço da api https://viacep.com.br/ws/UF/CIDADE/RUA/json/
+      substituindo os UF, CIDADE e RUA pelos campos que o usuário informou nos
+      inputs<br />
+      -- Exiba o resultado no console<br /><br />
+      - Adicione o evento de clique no botão de consulta para a função criada<br />
+    </p>
+
+    <input id="uf" placeholder="uf" />
+    <input id="cidade" placeholder="cidade" />
+    <input id="rua" placeholder="logradouro/rua" />
+    <input type="button" id="botao" value="consulta CEP" />
+
+    <script>
+      document.getElementById('botao').onclick = function () {
+        pesquisaCep();
+      };
+
+      const pesquisaCep = () => {
+        let uf = document.getElementById('uf').value;
+        let cidade = document.getElementById('cidade').value;
+        let rua = document.getElementById('rua').value;
+
+        // Cria função assíncrona para realizar o fetch do endereço do cep
+        const fetchApi = async () => {
+          // Efetua a chamada a api e aguarda o retorno
+          const response = await fetch(
+            'https://viacep.com.br/ws/' +
+              uf +
+              '/' +
+              cidade +
+              '/' +
+              rua +
+              '/json/'
+          );
+
+          // Efetua a tratativa caso o retorno seja sucesso
+          const data = await response.json();
+          console.log(data[0].cep);
+        };
+
+        fetchApi();
+      };
+    </script>
+  </body>
+</html>
