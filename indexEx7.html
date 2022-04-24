@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>M1S06Ex07</title>
+  </head>
+
+  <body>
+    <h1>M1S06Ex07</h1>
+    <p>
+      Após implementar o Ex 6, vamos adicionar tratativas na função criada;<br />
+      - Valide se todos os campos estão preenchidos, caso não estejam exiba
+      alerta informando os campos que ainda precisam ser preenchidos <br />
+      - Caso o uf tenha mais ou menos de 2 caracteres exiba alerta informando
+      que o UF é inválido <br />
+      - Em ambos os casos não deve ser realizada a busca na api<br />
+    </p>
+
+    <input id="uf" placeholder="uf" />
+    <input id="cidade" placeholder="cidade" />
+    <input id="rua" placeholder="logradouro/rua" />
+    <input type="button" id="botao" value="consulta CEP" />
+
+    <script>
+      document.getElementById('botao').onclick = function () {
+        pesquisaCep();
+      };
+
+      const pesquisaCep = () => {
+        let uf = document.getElementById('uf').value;
+        let cidade = document.getElementById('cidade').value;
+        let rua = document.getElementById('rua').value;
+
+        if (!uf || !cidade || !rua) {
+          alert('Preencha todos os campos para buscar o CEP');
+        } else {
+          if (uf.length != 2) {
+            alert('UF inválido! Preencha o campo com um UF válido');
+          } else {
+            // Cria função assíncrona para realizar o fetch do endereço do cep
+            const fetchApi = async () => {
+              // Efetua a chamada a api e aguarda o retorno
+              const response = await fetch(
+                'https://viacep.com.br/ws/' +
+                  uf +
+                  '/' +
+                  cidade +
+                  '/' +
+                  rua +
+                  '/json/'
+              );
+
+              // Efetua a tratativa caso o retorno seja sucesso
+              const data = await response.json();
+              console.log(data[0].cep);
+            };
+
+            fetchApi();
+          }
+        }
+      };
+    </script>
+  </body>
+</html>
