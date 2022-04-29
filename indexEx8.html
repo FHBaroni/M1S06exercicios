@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>M1S06Ex08</title>
+    <style>
+      table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+      }
+
+      td,
+      th {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+      }
+
+      tr:nth-child(even) {
+        background-color: #dddddd;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h1>M1S06Ex08</h1>
+    <p>
+      Após implementar o Ex 7, vamos adicionar tratativas na função criada;<br />
+      - Caso o retorno da api seja um erro deve ser exibido um alerta para o
+      usuário <br />
+      - Caso de sucesso mas não retorne nenhum cep deve ser exibido um elemento
+      <.p> Com a informação de que nenhum registro foi encontrado <br />
+      - Caso a api retorne os resultados deve ser criada uma tabela contendo
+      <br />
+      -- cep<br />
+      -- logradouro<br />
+      -- complemento<br />
+      -- bairro<br />
+      -- localidade<br />
+      -- uf<br />
+      -- ddd<br />
+    </p>
+
+    <input id="uf" placeholder="uf" />
+    <input id="cidade" placeholder="cidade" />
+    <input id="rua" placeholder="logradouro/rua" />
+    <input type="button" id="botao" value="consulta CEP" />
+
+    <script>
+      document.getElementById('botao').onclick = function () {
+        pesquisaCep();
+      };
+
+      const pesquisaCep = () => {
+        let uf = document.getElementById('uf').value;
+        let cidade = document.getElementById('cidade').value;
+        let rua = document.getElementById('rua').value;
+
+        if (!uf || !cidade || !rua) {
+          alert('Preencha todos os campos para buscar o CEP');
+        } else {
+          if (uf.length != 2) {
+            alert('UF inválido! Preencha o campo com um UF válido');
+          } else {
+            // Cria função assíncrona para realizar o fetch do endereço do cep
+            const fetchApi = async () => {
+              // Efetua a chamada a api e aguarda o retorno
+              const response = await fetch(
+                'https://viacep.com.br/ws/' +
+                  uf +
+                  '/' +
+                  cidade +
+                  '/' +
+                  rua +
+                  '/json/'
+              );
+
+              if (!response.ok) {
+                const err = await response.json();
+                return alert('Não foi possível consultar o cep');
+              }
+              // Efetua a tratativa caso o retorno seja sucesso
+              const data = await response.json();
+              console.log(data);
+
+              let imprimirTabela = [
+                data[0].cep,
+                data[0].logradouro,
+                data[0].complemento,
+                data[0].bairro,
+                data[0].localidade,
+                data[0].uf,
+                data[0].ddd,
+              ];
+
+              var x = document.createElement('TABLE');
+              x.setAttribute('id', 'myTable');
+              document.body.appendChild(x);
+
+              imprimirTabela.forEach((element) => {
+                var y = document.createElement('TR');
+                y.setAttribute('id', 'myTr');
+                document.getElementById('myTable').appendChild(y);
+
+                var z = document.createElement('TD');
+                var t = document.createTextNode(`${element}`);
+                z.appendChild(t);
+                document.getElementById('myTr').appendChild(z);
+              });
+            };
+            fetchApi();
+          }
+        }
+      };
+    </script>
+  </body>
+</html>
